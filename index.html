@@ -45,15 +45,41 @@
   .btn-line{border:2px solid var(--cream); color:var(--cream); margin-left:12px;}
   .btn-line:hover{background:var(--cream); color:var(--black);}
 
-  .crate{position:relative; height:320px;}
-  .crate .album{
-    position:absolute; width:220px; aspect-ratio:1; border:6px solid var(--cream); overflow:hidden;
-    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+  /* VINYL — spinning 3D record, driven by scroll */
+  .vinyl-stage{
+    height:380px; display:flex; align-items:center; justify-content:center;
+    perspective:1400px;
   }
-  .crate .album img{width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(8%);}
-  .crate .album:nth-child(1){left:0; top:40px; transform:rotate(-9deg); z-index:1;}
-  .crate .album:nth-child(2){left:90px; top:0; transform:rotate(4deg); z-index:2;}
-  .crate .album:nth-child(3){left:170px; top:60px; transform:rotate(-4deg); z-index:3;}
+  .vinyl-disc{
+    width:300px; height:300px; border-radius:50%; position:relative;
+    transform-style:preserve-3d;
+    background:
+      repeating-radial-gradient(circle at center, #0A0908 0 3px, #201D19 3px 6px),
+      radial-gradient(circle at 35% 35%, #2A2621, #0A0908 70%);
+    box-shadow:0 30px 70px rgba(0,0,0,0.55), inset 0 0 40px rgba(0,0,0,0.6);
+  }
+  .vinyl-disc::before{
+    content:''; position:absolute; inset:34%; border-radius:50%;
+    background:radial-gradient(circle at 40% 35%, #E8A34A, var(--amber) 60%, var(--amber-deep) 100%);
+    box-shadow:0 0 0 2px rgba(0,0,0,0.4);
+  }
+  .vinyl-disc::after{
+    content:''; position:absolute; top:50%; left:50%; width:12px; height:12px;
+    background:var(--black); border-radius:50%; transform:translate(-50%,-50%);
+    box-shadow:0 0 0 2px rgba(237,230,214,0.15);
+  }
+  .vinyl-shine{
+    position:absolute; inset:0; border-radius:50%;
+    background:linear-gradient(115deg, rgba(255,255,255,0.12) 0%, transparent 30%, transparent 70%, rgba(255,255,255,0.06) 100%);
+    pointer-events:none;
+  }
+
+  .blur-reveal{ transition: filter .12s ease-out; }
+
+  @media (prefers-reduced-motion: reduce){
+    .vinyl-disc{ transform:none !important; }
+    .blur-reveal{ filter:none !important; transition:none; }
+  }
 
   section{padding:80px 0;}
   .section-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px; gap:24px; flex-wrap:wrap;}
@@ -111,7 +137,8 @@
     .menu-toggle{display:block;}
     h1{font-size:34px;}
     .hero-grid{grid-template-columns:1fr;}
-    .crate{height:260px; margin:0 auto;}
+    .vinyl-stage{height:260px;}
+    .vinyl-disc{width:220px; height:220px;}
     .track-row{grid-template-columns:36px 1fr; row-gap:6px;}
     .track-genre,.track-price{grid-column:2; justify-self:start; text-align:left;}
     .listen-content blockquote{font-size:22px;}
@@ -139,15 +166,15 @@
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow">Discos raros, usados e garimpados</div>
-      <h1>Cada disco tem<br>o <span>estalo</span> de quem já ouviu antes.</h1>
+      <h1 class="blur-reveal">Cada disco tem<br>o <span>estalo</span> de quem já ouviu antes.</h1>
       <p>Garimpamos coleções inteiras, prensagens originais e relançamentos de qualidade — tudo testado na agulha antes de ir pra prateleira.</p>
       <a href="#acervo" class="btn btn-solid">Ver acervo da semana</a>
       <a href="#escute" class="btn btn-line">Escute antes de levar</a>
     </div>
-    <div class="crate">
-      <div class="album"><img src="https://images.pexels.com/photos/1181769/pexels-photo-1181769.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Disco de vinil na prateleira"></div>
-      <div class="album"><img src="https://images.pexels.com/photos/7605653/pexels-photo-7605653.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Detalhe dos sulcos de um disco de vinil"></div>
-      <div class="album"><img src="https://images.pexels.com/photos/5764281/pexels-photo-5764281.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Disco de vinil girando na vitrola"></div>
+    <div class="vinyl-stage">
+      <div class="vinyl-disc" id="vinylDisc">
+        <div class="vinyl-shine"></div>
+      </div>
     </div>
   </div>
 </header>
@@ -156,7 +183,7 @@
   <div class="section-head">
     <div>
       <div class="tag">Chegaram essa semana</div>
-      <h2>Garimpo recém-catalogado</h2>
+      <h2 class="blur-reveal">Garimpo recém-catalogado</h2>
     </div>
     <p>Toda coleção nova é testada faixa a faixa antes de entrar na prateleira.</p>
   </div>
@@ -200,7 +227,7 @@
   <img src="https://images.pexels.com/photos/14071983/pexels-photo-14071983.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Agulha de vitrola sobre disco de vinil">
   <div class="listen-content wrap">
     <div class="tag mono">Cabine de escuta</div>
-    <blockquote>Streaming toca a música. Vinil toca o disco inteiro — do primeiro chiado ao último.</blockquote>
+    <blockquote class="blur-reveal">Streaming toca a música. Vinil toca o disco inteiro — do primeiro chiado ao último.</blockquote>
     <cite>— Caio Bittencourt, fundador · toda compra acima de R$ 100 dá direito a 20min na cabine</cite>
   </div>
 </div>
@@ -212,7 +239,7 @@
     </div>
     <div class="about-text">
       <div class="tag mono" style="color:var(--amber); font-weight:700; margin-bottom:14px;">Nossa história</div>
-      <h2 style="margin-bottom:18px;">De coleção pessoal a loja de bairro</h2>
+      <h2 class="blur-reveal" style="margin-bottom:18px;">De coleção pessoal a loja de bairro</h2>
       <p>Começamos vendendo duplicatas da própria coleção numa feira de domingo. Hoje compramos acervos inteiros de quem está se desfazendo da coleção, sempre testando disco por disco antes de precificar.</p>
       <p>Nada de disco "quase novo" no visual — testamos a agulha em cada um, sem exceção.</p>
       <div class="stats">
@@ -253,6 +280,38 @@
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => navLinks.classList.remove('open'));
   });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion) {
+    // Disco de vinil gira em 3D conforme a rolagem da página
+    const vinylDisc = document.getElementById('vinylDisc');
+    let lastScrollY = window.scrollY;
+    let blurTimeout;
+    const blurTargets = document.querySelectorAll('.blur-reveal');
+
+    function onScroll() {
+      const y = window.scrollY;
+      const delta = y - lastScrollY;
+      lastScrollY = y;
+
+      if (vinylDisc) {
+        const rotation = y * 0.35;
+        vinylDisc.style.transform = `rotateY(${rotation}deg) rotateX(6deg)`;
+      }
+
+      const blurAmount = Math.min(Math.abs(delta) * 0.6, 6);
+      blurTargets.forEach(el => { el.style.filter = `blur(${blurAmount}px)`; });
+
+      clearTimeout(blurTimeout);
+      blurTimeout = setTimeout(() => {
+        blurTargets.forEach(el => { el.style.filter = 'blur(0px)'; });
+      }, 120);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 </script>
 
 </body>
