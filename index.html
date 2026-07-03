@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Selo Vinil — Discos & Discoteca</title>
-<meta name="description" content="Selo Vinil — discos de vinil raros, usados e novos, escolhidos a dedo para colecionadores.">
+<meta name="description" content="Selo Vinil — discos de vinil raros, usados e novos, garimpados a dedo para colecionadores.">
 <style>
   :root{
     --black:#141210;
@@ -17,98 +17,106 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-  body{background:var(--black); color:var(--cream); font-family:'Segoe UI', -apple-system, Helvetica, Arial, sans-serif; line-height:1.6;}
+  body{background:var(--black); color:var(--cream); font-family:'Arial Narrow','Helvetica Neue',Arial,sans-serif; line-height:1.55;}
   a{color:inherit; text-decoration:none;}
   .wrap{max-width:1120px; margin:0 auto; padding:0 36px;}
+  .mono{font-family:'Courier New',monospace;}
 
-  nav{position:sticky; top:0; z-index:50; background:rgba(20,18,16,0.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
-  .nav-row{display:flex; justify-content:space-between; align-items:center; padding:22px 36px;}
-  .brand{font-family:Georgia,serif; font-size:22px; letter-spacing:0.3px;}
-  .brand span{color:var(--amber);}
-  .nav-links{display:flex; gap:32px; font-size:13px; letter-spacing:0.8px; text-transform:uppercase; color:var(--cream-soft);}
+  nav{position:sticky; top:0; z-index:50; background:rgba(20,18,16,0.95); border-bottom:1px solid var(--line);}
+  .nav-row{display:flex; justify-content:space-between; align-items:center; padding:20px 36px;}
+  .brand{font-size:18px; font-weight:900; letter-spacing:1px; text-transform:uppercase; display:flex; align-items:center; gap:10px;}
+  .brand .disc{width:16px; height:16px; border-radius:50%; background:conic-gradient(var(--amber) 0turn, var(--black) 0.05turn, var(--amber) 0.5turn, var(--black) 0.55turn, var(--amber) 1turn); animation:spin 3s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .nav-links{display:flex; gap:0;}
+  .nav-links a{font-size:12px; letter-spacing:1px; text-transform:uppercase; padding:0 20px; font-weight:700; border-left:1px solid var(--line); color:var(--cream-soft);}
   .nav-links a:hover{color:var(--amber);}
-  .menu-toggle{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px;}
-  .menu-toggle span{width:26px; height:2px; background:var(--cream); display:block;}
+  .menu-toggle{display:none; background:none; border:none; font-size:22px; color:var(--cream); cursor:pointer;}
 
-  .hero{padding:70px 0 0;}
-  .hero-inner{display:grid; grid-template-columns:1.05fr 0.95fr; gap:50px; align-items:center; padding-bottom:60px;}
-  .eyebrow{font-size:13px; letter-spacing:2px; text-transform:uppercase; color:var(--amber); margin-bottom:22px;}
-  h1{font-family:Georgia,serif; font-weight:400; font-size:50px; line-height:1.15; margin-bottom:26px;}
-  h1 em{font-style:italic; color:var(--amber);}
-  .hero p{font-size:17px; color:var(--cream-soft); max-width:440px; margin-bottom:32px;}
-  .btn{font-size:13px; letter-spacing:1px; text-transform:uppercase; padding:15px 30px; display:inline-block; transition:all .25s ease;}
+  /* HERO — crate of tilted album covers */
+  .hero{padding:60px 0 70px; border-bottom:1px solid var(--line);}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;}
+  .eyebrow{font-size:12.5px; letter-spacing:2px; text-transform:uppercase; color:var(--amber); font-weight:700; margin-bottom:20px;}
+  h1{font-size:52px; font-weight:900; line-height:1.05; letter-spacing:-1px; margin-bottom:26px; text-transform:uppercase;}
+  h1 span{color:var(--amber);}
+  .hero p{max-width:440px; color:var(--cream-soft); font-size:16px; margin-bottom:32px;}
+  .btn{font-size:12.5px; letter-spacing:1px; text-transform:uppercase; font-weight:700; padding:15px 28px; display:inline-block; transition:all .2s ease;}
   .btn-solid{background:var(--amber); color:var(--black);}
   .btn-solid:hover{background:#E8A34A;}
-  .btn-line{border:1px solid var(--cream); color:var(--cream); margin-left:14px;}
+  .btn-line{border:2px solid var(--cream); color:var(--cream); margin-left:12px;}
   .btn-line:hover{background:var(--cream); color:var(--black);}
 
-  .hero-photo{aspect-ratio:4/3; overflow:hidden; border-radius:4px; box-shadow:0 25px 50px rgba(0,0,0,0.5);}
-  .hero-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .crate{position:relative; height:320px;}
+  .crate .album{
+    position:absolute; width:220px; aspect-ratio:1; border:6px solid var(--cream); overflow:hidden;
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+  }
+  .crate .album img{width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(8%);}
+  .crate .album:nth-child(1){left:0; top:40px; transform:rotate(-9deg); z-index:1;}
+  .crate .album:nth-child(2){left:90px; top:0; transform:rotate(4deg); z-index:2;}
+  .crate .album:nth-child(3){left:170px; top:60px; transform:rotate(-4deg); z-index:3;}
 
-  section{padding:90px 0;}
-  .section-head{max-width:560px; margin:0 auto 56px; text-align:center;}
-  .section-head .eyebrow{margin-bottom:16px;}
-  h2{font-family:Georgia,serif; font-weight:400; font-size:36px; color:var(--cream);}
-  h2 em{font-style:italic; color:var(--amber);}
-  .section-head p{color:var(--cream-soft); font-size:15.5px; margin-top:14px;}
+  section{padding:80px 0;}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px; gap:24px; flex-wrap:wrap;}
+  .section-head .tag{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--amber); font-weight:700; margin-bottom:12px;}
+  h2{font-size:30px; font-weight:900; text-transform:uppercase; letter-spacing:-0.5px; max-width:520px;}
+  .section-head p{max-width:320px; color:var(--cream-soft); font-size:14px;}
 
-  .catalog{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
-  .disc{background:var(--black-2);}
-  .disc .d-photo{aspect-ratio:1/1; overflow:hidden;}
-  .disc .d-photo img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; filter:grayscale(10%);}
-  .disc:hover .d-photo img{transform:scale(1.06);}
-  .disc .d-info{padding:20px 20px 24px;}
-  .disc h3{font-family:Georgia,serif; font-weight:400; font-size:18px; margin-bottom:6px;}
-  .disc p{font-size:13px; color:var(--cream-soft); margin-bottom:12px;}
-  .disc .price{font-family:Georgia,serif; font-size:16px; color:var(--amber);}
+  /* TRACKLIST — pure typography catalog */
+  .tracklist{border-top:2px solid var(--cream);}
+  .track-row{display:grid; grid-template-columns:50px 1fr 120px 110px; gap:20px; align-items:center; padding:20px 0; border-bottom:1px solid var(--line);}
+  .track-row:hover{background:var(--black-2);}
+  .track-num{font-family:'Courier New',monospace; font-size:14px; color:var(--amber); font-weight:700;}
+  .track-row h3{font-size:18px; text-transform:uppercase; font-weight:700;}
+  .track-row .desc{font-size:13px; color:var(--cream-soft); grid-column:2; margin-top:4px;}
+  .track-genre{font-family:'Courier New',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:var(--cream-soft); border:1px solid var(--line); padding:5px 10px; justify-self:start;}
+  .track-price{font-family:'Courier New',monospace; font-size:15px; text-align:right; font-weight:700; color:var(--amber);}
 
-  .band{background:var(--amber); color:var(--black); padding:100px 0; text-align:center;}
-  .band blockquote{font-family:Georgia,serif; font-size:28px; font-style:italic; max-width:680px; margin:0 auto; line-height:1.55;}
-  .band cite{display:block; margin-top:24px; font-style:normal; font-size:12px; letter-spacing:1.2px; text-transform:uppercase; opacity:0.75;}
+  /* GENRE badges */
+  .genres{display:flex; flex-wrap:wrap; gap:14px;}
+  .genre-pill{font-family:'Courier New',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; border:1px solid var(--amber); color:var(--amber); padding:10px 18px; border-radius:999px;}
 
-  .about-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px; align-items:center;}
-  .about-visual{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-  .about-visual .card{border-radius:16px; overflow:hidden; box-shadow:0 10px 25px rgba(0,0,0,0.4); aspect-ratio:1;}
-  .about-visual .card img{width:100%; height:100%; object-fit:cover; filter:grayscale(10%);}
-  .about-visual .card:nth-child(2){margin-top:28px;}
-  .about-text p{color:var(--cream-soft); margin-bottom:16px; font-size:15.5px;}
-  .stats{display:flex; gap:36px; margin-top:28px; flex-wrap:wrap;}
-  .stat strong{display:block; font-size:1.8rem; font-family:Georgia,serif; color:var(--amber);}
-  .stat span{color:var(--cream-soft); font-size:0.85rem;}
+  /* LISTEN band — full photo with quote */
+  .listen-band{position:relative; height:420px; overflow:hidden;}
+  .listen-band img{width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(15%) brightness(0.55);}
+  .listen-content{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding:0 6vw;}
+  .listen-content .tag{color:var(--amber); font-weight:700;}
+  .listen-content blockquote{font-size:30px; font-weight:900; line-height:1.3; text-transform:uppercase; letter-spacing:-0.5px; max-width:640px;}
+  .listen-content cite{display:block; margin-top:20px; font-size:13px; color:var(--cream-soft); text-transform:none; font-weight:400;}
 
-  .listen{background:var(--black-2);}
-  .listen-inner{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;}
-  .listen-inner img{width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:4px; filter:grayscale(10%);}
-  .listen-text p{color:var(--cream-soft); font-size:15.5px; margin-bottom:28px; max-width:420px;}
+  /* SOBRE — asymmetric single photo */
+  .about-grid{display:grid; grid-template-columns:1fr 1.2fr; gap:56px; align-items:center;}
+  .about-photo{aspect-ratio:3/4; overflow:hidden;}
+  .about-photo img{width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(10%);}
+  .about-text p{color:var(--cream-soft); font-size:15px; margin-bottom:18px; max-width:440px;}
+  .stats{display:flex; gap:36px; margin-top:24px; flex-wrap:wrap;}
+  .stat strong{display:block; font-size:1.8rem; font-weight:900; color:var(--amber);}
+  .stat span{color:var(--cream-soft); font-size:0.78rem; font-family:'Courier New',monospace; text-transform:uppercase;}
 
+  /* CONTATO */
   .contact-inner{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;}
-  .info-row{padding:16px 0; border-bottom:1px solid var(--line); font-size:15px;}
-  .info-row span{display:block; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--cream-soft); margin-bottom:5px;}
+  .contact-info div{padding:16px 0; border-bottom:1px solid var(--line); font-size:14.5px;}
+  .contact-info span{display:block; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--cream-soft); margin-bottom:5px; font-weight:700;}
 
-  footer{border-top:1px solid var(--line); padding:34px 0;}
-  .foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:13px; color:var(--cream-soft);}
+  footer{border-top:3px solid var(--amber); padding:32px 0;}
+  .foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:12px; color:var(--cream-soft); font-family:'Courier New',monospace;}
 
   @media(max-width:900px){
     .nav-links{
-      display:none; position:fixed; top:66px; left:0; right:0; z-index:60;
+      display:none; position:fixed; top:64px; left:0; right:0; z-index:60;
       flex-direction:column; align-items:center; gap:20px;
       background:var(--black); border-bottom:1px solid var(--line); padding:26px 0;
     }
     .nav-links.open{display:flex;}
-    .menu-toggle{display:flex;}
-    .hero-inner{grid-template-columns:1fr;}
-    .hero-photo{order:-1;}
+    .nav-links a{border-left:none;}
+    .menu-toggle{display:block;}
     h1{font-size:34px;}
-    .catalog{grid-template-columns:1fr 1fr;}
+    .hero-grid{grid-template-columns:1fr;}
+    .crate{height:260px; margin:0 auto;}
+    .track-row{grid-template-columns:36px 1fr; row-gap:6px;}
+    .track-genre,.track-price{grid-column:2; justify-self:start; text-align:left;}
+    .listen-content blockquote{font-size:22px;}
     .about-grid{grid-template-columns:1fr;}
-    .listen-inner{grid-template-columns:1fr;}
-    .listen-inner img{order:-1;}
     .contact-inner{grid-template-columns:1fr;}
-    .stats{justify-content:center;}
-  }
-
-  @media(max-width:520px){
-    .catalog{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -116,93 +124,95 @@
 
 <nav>
   <div class="nav-row wrap" style="padding-left:0; padding-right:0;">
-    <div class="brand">Selo <span>Vinil</span></div>
+    <div class="brand"><span class="disc"></span>Selo Vinil</div>
     <div class="nav-links" id="navLinks">
       <a href="#acervo">Acervo</a>
+      <a href="#escute">Escute</a>
       <a href="#sobre">Sobre</a>
-      <a href="#escute">Escute na loja</a>
       <a href="#contato">Visitar</a>
     </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
   </div>
 </nav>
 
-<header class="hero wrap">
-  <div class="hero-inner">
+<header class="hero">
+  <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">Discos de vinil raros e usados</div>
-      <h1>Cada disco tem<br>o <em>estalo</em> de quem já ouviu antes.</h1>
+      <div class="eyebrow">Discos raros, usados e garimpados</div>
+      <h1>Cada disco tem<br>o <span>estalo</span> de quem já ouviu antes.</h1>
       <p>Garimpamos coleções inteiras, prensagens originais e relançamentos de qualidade — tudo testado na agulha antes de ir pra prateleira.</p>
       <a href="#acervo" class="btn btn-solid">Ver acervo da semana</a>
       <a href="#escute" class="btn btn-line">Escute antes de levar</a>
     </div>
-    <div class="hero-photo">
-      <img src="https://images.pexels.com/photos/6131931/pexels-photo-6131931.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Interior de loja de discos de vinil">
+    <div class="crate">
+      <div class="album"><img src="https://images.pexels.com/photos/1181769/pexels-photo-1181769.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Disco de vinil na prateleira"></div>
+      <div class="album"><img src="https://images.pexels.com/photos/7605653/pexels-photo-7605653.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Detalhe dos sulcos de um disco de vinil"></div>
+      <div class="album"><img src="https://images.pexels.com/photos/5764281/pexels-photo-5764281.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Disco de vinil girando na vitrola"></div>
     </div>
   </div>
 </header>
 
 <section id="acervo" class="wrap">
   <div class="section-head">
-    <div class="eyebrow">Chegaram essa semana</div>
-    <h2>Garimpo <em>recém-catalogado</em></h2>
+    <div>
+      <div class="tag">Chegaram essa semana</div>
+      <h2>Garimpo recém-catalogado</h2>
+    </div>
     <p>Toda coleção nova é testada faixa a faixa antes de entrar na prateleira.</p>
   </div>
-  <div class="catalog">
-    <div class="disc">
-      <div class="d-photo"><img src="https://images.pexels.com/photos/1181769/pexels-photo-1181769.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Disco de vinil na prateleira"></div>
-      <div class="d-info">
-        <h3>Prensagem Original</h3>
-        <p>Jazz nacional, primeira prensagem, capa com leve desgaste.</p>
-        <div class="price">R$ 120</div>
-      </div>
+  <div class="tracklist">
+    <div class="track-row">
+      <div class="track-num">01</div>
+      <div><h3>Prensagem Original</h3><div class="desc">Jazz nacional, primeira prensagem, capa com leve desgaste.</div></div>
+      <div class="track-genre">Jazz</div>
+      <div class="track-price mono">R$ 120</div>
     </div>
-    <div class="disc">
-      <div class="d-photo"><img src="https://images.pexels.com/photos/7605653/pexels-photo-7605653.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Detalhe dos sulcos de um disco de vinil"></div>
-      <div class="d-info">
-        <h3>Relançamento 180g</h3>
-        <p>Prensagem pesada, remasterizado, encarte duplo.</p>
-        <div class="price">R$ 145</div>
-      </div>
+    <div class="track-row">
+      <div class="track-num">02</div>
+      <div><h3>Relançamento 180g</h3><div class="desc">Prensagem pesada, remasterizado, encarte duplo.</div></div>
+      <div class="track-genre">Soul</div>
+      <div class="track-price mono">R$ 145</div>
     </div>
-    <div class="disc">
-      <div class="d-photo"><img src="https://images.pexels.com/photos/5764281/pexels-photo-5764281.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Disco de vinil girando na vitrola"></div>
-      <div class="d-info">
-        <h3>Coleção Rock Clássico</h3>
-        <p>Lote de importados dos anos 70, testados um a um.</p>
-        <div class="price">R$ 98</div>
-      </div>
+    <div class="track-row">
+      <div class="track-num">03</div>
+      <div><h3>Coleção Rock Clássico</h3><div class="desc">Lote de importados dos anos 70, testados um a um.</div></div>
+      <div class="track-genre">Rock</div>
+      <div class="track-price mono">R$ 98</div>
     </div>
-    <div class="disc">
-      <div class="d-photo"><img src="https://images.pexels.com/photos/14071983/pexels-photo-14071983.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Agulha de vitrola sobre disco de vinil"></div>
-      <div class="d-info">
-        <h3>MPB Rara</h3>
-        <p>Edição descontinuada, capa original, disco impecável.</p>
-        <div class="price">R$ 180</div>
-      </div>
+    <div class="track-row">
+      <div class="track-num">04</div>
+      <div><h3>MPB Rara</h3><div class="desc">Edição descontinuada, capa original, disco impecável.</div></div>
+      <div class="track-genre">MPB</div>
+      <div class="track-price mono">R$ 180</div>
     </div>
+  </div>
+  <div class="genres" style="margin-top:44px;">
+    <span class="genre-pill">Jazz</span>
+    <span class="genre-pill">MPB</span>
+    <span class="genre-pill">Rock Clássico</span>
+    <span class="genre-pill">Soul & Funk</span>
+    <span class="genre-pill">Bossa Nova</span>
+    <span class="genre-pill">Importados</span>
   </div>
 </section>
 
-<div class="band">
-  <div class="wrap">
-    <blockquote>"Streaming toca a música. Vinil toca o disco inteiro — do primeiro chiado ao último."</blockquote>
-    <cite>— Caio Bittencourt, fundador</cite>
+<div class="listen-band" id="escute">
+  <img src="https://images.pexels.com/photos/14071983/pexels-photo-14071983.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Agulha de vitrola sobre disco de vinil">
+  <div class="listen-content wrap">
+    <div class="tag mono">Cabine de escuta</div>
+    <blockquote>Streaming toca a música. Vinil toca o disco inteiro — do primeiro chiado ao último.</blockquote>
+    <cite>— Caio Bittencourt, fundador · toda compra acima de R$ 100 dá direito a 20min na cabine</cite>
   </div>
 </div>
 
 <section id="sobre" class="wrap">
   <div class="about-grid">
-    <div class="about-visual">
-      <div class="card"><img src="https://images.pexels.com/photos/7831333/pexels-photo-7831333.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Prateleiras de discos de vinil"></div>
-      <div class="card"><img src="https://images.pexels.com/photos/1181789/pexels-photo-1181789.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Coleção de discos organizados"></div>
-      <div class="card"><img src="https://images.pexels.com/photos/6131929/pexels-photo-6131929.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cliente folheando discos na loja"></div>
+    <div class="about-photo">
+      <img src="https://images.pexels.com/photos/7831333/pexels-photo-7831333.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Prateleiras de discos de vinil">
     </div>
     <div class="about-text">
-      <div class="eyebrow">Nossa história</div>
-      <h2>De coleção pessoal <em>a loja de bairro</em></h2>
+      <div class="tag mono" style="color:var(--amber); font-weight:700; margin-bottom:14px;">Nossa história</div>
+      <h2 style="margin-bottom:18px;">De coleção pessoal a loja de bairro</h2>
       <p>Começamos vendendo duplicatas da própria coleção numa feira de domingo. Hoje compramos acervos inteiros de quem está se desfazendo da coleção, sempre testando disco por disco antes de precificar.</p>
       <p>Nada de disco "quase novo" no visual — testamos a agulha em cada um, sem exceção.</p>
       <div class="stats">
@@ -214,39 +224,24 @@
   </div>
 </section>
 
-<section id="escute" class="listen">
-  <div class="wrap listen-inner">
-    <div class="listen-text">
-      <div class="eyebrow">Cabine de escuta</div>
-      <h2>Ouça <em>antes de decidir</em></h2>
-      <p>Toda compra acima de R$ 100 dá direito a 20 minutos na nossa cabine, com vitrola valvulada e fones de estúdio.</p>
-      <a href="#contato" class="btn btn-solid">Reservar horário</a>
-    </div>
-    <img src="https://images.pexels.com/photos/5764281/pexels-photo-5764281.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Vitrola tocando disco de vinil">
-  </div>
-</section>
-
 <section id="contato" class="wrap">
   <div class="contact-inner">
     <div>
-      <div class="section-head" style="text-align:left; margin-bottom:24px;">
-        <div class="eyebrow">Visite a loja</div>
-        <h2>Aberto de <em>terça a sábado</em></h2>
-      </div>
+      <div class="tag mono" style="color:var(--amber); font-weight:700; margin-bottom:14px;">Visite a loja</div>
+      <h2 style="margin-bottom:24px;">Aberto de terça a sábado</h2>
       <a href="#" class="btn btn-solid">Chamar no WhatsApp</a>
     </div>
-    <div>
-      <div class="info-row"><span>Endereço</span>Rua do Acetato, 77 — Centro</div>
-      <div class="info-row"><span>Horário</span>Terça a sábado, 11h às 20h</div>
-      <div class="info-row"><span>Telefone</span>(11) 98888-4455</div>
-      <div class="info-row"><span>E-mail</span>contato@selovinil.com.br</div>
+    <div class="contact-info">
+      <div><span>Endereço</span>Rua do Acetato, 77 — Centro</div>
+      <div><span>Horário</span>Terça a sábado, 11h às 20h</div>
+      <div><span>Telefone</span>(11) 98888-4455</div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap foot-row">
-    <div>© 2026 Selo Vinil — Discos & Discoteca</div>
+    <div>© 2026 SELO VINIL — DISCOS & DISCOTECA</div>
     <div>TESTADO NA AGULHA, SEMPRE</div>
   </div>
 </footer>
