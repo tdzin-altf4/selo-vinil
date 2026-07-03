@@ -74,11 +74,15 @@
     pointer-events:none;
   }
 
-  .blur-reveal{ transition: filter .12s ease-out; }
+  .blur-reveal{
+    opacity:0; transform:translateY(22px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .blur-reveal.in-view{ opacity:1; transform:translateY(0); }
 
   @media (prefers-reduced-motion: reduce){
     .vinyl-disc{ transform:none !important; }
-    .blur-reveal{ filter:none !important; transition:none; }
+    .blur-reveal{ opacity:1 !important; transform:none !important; transition:none; }
   }
 
   section{padding:80px 0;}
@@ -286,31 +290,29 @@
   if (!reduceMotion) {
     // Disco de vinil gira em 3D conforme a rolagem da página
     const vinylDisc = document.getElementById('vinylDisc');
-    let lastScrollY = window.scrollY;
-    let blurTimeout;
-    const blurTargets = document.querySelectorAll('.blur-reveal');
-
     function onScroll() {
-      const y = window.scrollY;
-      const delta = y - lastScrollY;
-      lastScrollY = y;
-
       if (vinylDisc) {
-        const rotation = y * 0.35;
-        vinylDisc.style.transform = `rotateY(${rotation}deg) rotateX(6deg)`;
+        vinylDisc.style.transform = `rotateY(${window.scrollY * 0.35}deg) rotateX(6deg)`;
       }
-
-      const blurAmount = Math.min(Math.abs(delta) * 0.6, 6);
-      blurTargets.forEach(el => { el.style.filter = `blur(${blurAmount}px)`; });
-
-      clearTimeout(blurTimeout);
-      blurTimeout = setTimeout(() => {
-        blurTargets.forEach(el => { el.style.filter = 'blur(0px)'; });
-      }, 120);
     }
-
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+  }
+
+  // Títulos aparecem suavemente (sem blur) quando entram na tela
+  const revealTargets = document.querySelectorAll('.blur-reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealTargets.forEach(el => el.classList.add('in-view'));
+  } else {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    revealTargets.forEach(el => revealObserver.observe(el));
   }
 </script>
 
