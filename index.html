@@ -5,6 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Selo Vinil — Discos & Discoteca</title>
 <meta name="description" content="Selo Vinil — discos de vinil raros, usados e novos, garimpados a dedo para colecionadores.">
+<link rel="canonical" href="https://tdzin-altf4.github.io/selo-vinil/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141210'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23D98E2B' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23D98E2B'/%3E%3C/svg%3E">
+
+<meta property="og:title" content="Selo Vinil — Discos & Discoteca">
+<meta property="og:description" content="Discos raros, usados e garimpados a dedo, testados na agulha antes de ir pra prateleira.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tdzin-altf4.github.io/selo-vinil/">
+<meta property="og:image" content="https://images.pexels.com/photos/14071983/pexels-photo-14071983.jpeg?auto=compress&cs=tinysrgb&w=1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Selo Vinil — Discos & Discoteca">
+<meta name="twitter:description" content="Discos raros, usados e garimpados a dedo, testados na agulha antes de ir pra prateleira.">
+<meta name="twitter:image" content="https://images.pexels.com/photos/14071983/pexels-photo-14071983.jpeg?auto=compress&cs=tinysrgb&w=1200">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Selo Vinil",
+  "description": "Loja de discos de vinil raros, usados e novos, testados na agulha.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua do Acetato, 77 — Centro"
+  },
+  "telephone": "+5511988884455",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "opens": "11:00",
+    "closes": "20:00"
+  }
+}
+</script>
 <style>
   :root{
     --black:#141210;
@@ -19,6 +51,9 @@
   html{scroll-behavior:smooth;}
   body{background:var(--black); color:var(--cream); font-family:'Arial Narrow','Helvetica Neue',Arial,sans-serif; line-height:1.55;}
   a{color:inherit; text-decoration:none;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:3px; border-radius:2px;}
+  .skip-link{position:absolute; left:-999px; top:auto; background:var(--amber); color:var(--black); padding:12px 20px; z-index:100; font-size:13px; font-weight:700;}
+  .skip-link:focus{left:16px; top:16px;}
   .wrap{max-width:1120px; margin:0 auto; padding:0 36px;}
   .mono{font-family:'Courier New',monospace;}
 
@@ -81,8 +116,11 @@
   .blur-reveal.in-view{ opacity:1; transform:translateY(0); }
 
   @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
     .vinyl-disc{ transform:none !important; }
     .blur-reveal{ opacity:1 !important; transform:none !important; transition:none; }
+    .about-photo img{ transition:none; }
+    .about-photo:hover img{ transform:none; }
   }
 
   section{padding:80px 0;}
@@ -116,7 +154,8 @@
   /* SOBRE — asymmetric single photo */
   .about-grid{display:grid; grid-template-columns:1fr 1.2fr; gap:56px; align-items:center;}
   .about-photo{aspect-ratio:3/4; overflow:hidden;}
-  .about-photo img{width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(10%);}
+  .about-photo img{width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(10%); transition:transform .3s ease;}
+  .about-photo:hover img{transform:scale(1.03);}
   .about-text p{color:var(--cream-soft); font-size:15px; margin-bottom:18px; max-width:440px;}
   .stats{display:flex; gap:36px; margin-top:24px; flex-wrap:wrap;}
   .stat strong{display:block; font-size:1.8rem; font-weight:900; color:var(--amber);}
@@ -149,9 +188,17 @@
     .about-grid{grid-template-columns:1fr;}
     .contact-inner{grid-template-columns:1fr;}
   }
+
+  @media(max-width:380px){
+    .wrap{padding:0 20px;}
+    h1{font-size:26px;}
+    h2{font-size:22px;}
+  }
 </style>
 </head>
 <body>
+
+<a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 
 <nav>
   <div class="nav-row wrap" style="padding-left:0; padding-right:0;">
@@ -162,11 +209,11 @@
       <a href="#sobre">Sobre</a>
       <a href="#contato">Visitar</a>
     </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">☰</button>
   </div>
 </nav>
 
-<header class="hero">
+<header class="hero" id="conteudo">
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow">Discos raros, usados e garimpados</div>
@@ -228,7 +275,7 @@
 </section>
 
 <div class="listen-band" id="escute">
-  <img src="https://images.pexels.com/photos/14071983/pexels-photo-14071983.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Agulha de vitrola sobre disco de vinil">
+  <img src="https://images.pexels.com/photos/14071983/pexels-photo-14071983.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Agulha de vitrola sobre disco de vinil" width="1400" height="420" loading="lazy">
   <div class="listen-content wrap">
     <div class="tag mono">Cabine de escuta</div>
     <blockquote class="blur-reveal">Streaming toca a música. Vinil toca o disco inteiro — do primeiro chiado ao último.</blockquote>
@@ -239,7 +286,7 @@
 <section id="sobre" class="wrap">
   <div class="about-grid">
     <div class="about-photo">
-      <img src="https://images.pexels.com/photos/7831333/pexels-photo-7831333.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Prateleiras de discos de vinil">
+      <img src="https://images.pexels.com/photos/7831333/pexels-photo-7831333.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Prateleiras de discos de vinil" width="600" height="800" loading="lazy">
     </div>
     <div class="about-text">
       <div class="tag mono" style="color:var(--amber); font-weight:700; margin-bottom:14px;">Nossa história</div>
@@ -260,12 +307,12 @@
     <div>
       <div class="tag mono" style="color:var(--amber); font-weight:700; margin-bottom:14px;">Visite a loja</div>
       <h2 style="margin-bottom:24px;">Aberto de terça a sábado</h2>
-      <a href="#" class="btn btn-solid">Chamar no WhatsApp</a>
+      <a href="https://wa.me/5511988884455" class="btn btn-solid" target="_blank" rel="noopener">Chamar no WhatsApp</a>
     </div>
     <div class="contact-info">
       <div><span>Endereço</span>Rua do Acetato, 77 — Centro</div>
       <div><span>Horário</span>Terça a sábado, 11h às 20h</div>
-      <div><span>Telefone</span>(11) 98888-4455</div>
+      <div><span>Telefone</span><a href="tel:+5511988884455">(11) 98888-4455</a></div>
     </div>
   </div>
 </section>
@@ -280,9 +327,15 @@
 <script>
   const menuToggle = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
-  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  menuToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
   navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('open'));
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
   });
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
